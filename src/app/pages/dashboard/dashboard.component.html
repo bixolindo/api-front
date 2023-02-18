@@ -1,0 +1,53 @@
+<div class="layout">
+    <section *ngIf="servicos && servicos.length > 0" class="carousel-sec shadow-6">
+      <h1>Status atual dos serviços</h1>
+      <hr class="mb-2">
+      <p-carousel [value]="servicos" class="custom-carousel" [numVisible]="4" [numScroll]="1" [circular]="true"
+        [responsiveOptions]="responsiveOptions">
+        <ng-template let-servico pTemplate="item">
+          <div class="card-status shadow-6 p-0 m-1">
+            <p-card header="Status : {{servico.status | statuspipe}}"
+              subheader="Uiltima atualização: {{servico.data | date: 'dd/MM/yyyy'}}"
+              class=" surface-card text-center border-round-sm font-semibold">
+              <ng-template pTemplate="header" style="padding: 1rem !important;">
+                <div class="autorizador-circle">
+                  {{servico.autorizador}}
+                </div>
+              </ng-template>
+            </p-card>
+          </div>
+        </ng-template>
+      </p-carousel>
+    </section>
+    <section class="under-section-area flex flex-column md:flex-row align-items-center justify-content-evenly">
+      <div class="sub-cards col-12 md:col-4 lg:col-4 shadow-6">
+        <div class="p-2" style="font-weight: bold; color: #38182f;">
+          <h4>Pesquisar Por data</h4>
+        </div>
+        <hr>
+        <div class="flex align-items-center flex-1">
+          <div class="p-field p-col-12 p-md-4">
+            <label style="color: #38182f;" for="basic"><b>Inicio: </b></label>
+            <p-calendar inputId="basic" [(ngModel)]="date1"></p-calendar>
+          </div>
+          <div class="p-field p-col-12 p-md-4">
+            <label for="basic">Fim: </label>
+            <p-calendar inputId="basic" [(ngModel)]="date2"></p-calendar>
+          </div>
+        </div>
+        <div class="ml-auto mr-1">
+          <button (click)="pesquisarPorData()" pButton pRipple type="button" label="Pesquisar" class="p-button-raised p-button-help"></button>
+        </div>
+      </div>
+      <div class="sub-cards col-12 md:col-4 lg:col-4 shadow-6">
+        <div class="p-2" style="font-weight: bold; color: #38182f;">
+          <h4>Servico com pior estabilidade </h4>
+        </div>
+        <hr>
+        <div class="flex flex-1 align-items-center justify-content-between">
+          <h5 class="autorizador-circle">{{piorServico.autorizador}}</h5>
+          <b>Quantidade de vezes inativo : {{piorServico.count}}</b>
+        </div>
+      </div>
+    </section>
+  </div>

@@ -1,0 +1,46 @@
+<div class="flex search-area">
+    <!-- make a circle button with arrow back icon who go back to routerLink /dashboard -->
+    <button routerLink="/dashboard" class="col-2" pButton pRipple type="button" icon="pi pi-arrow-circle-left"
+        class="p-button-rounded p-button-help"></button>
+    <h3 class="col-4">Pesquisar por datas</h3>
+    <div class="flex align-items-center col-6 flex-1" style="gap: 10px">
+        <div class="p-field p-col-12 p-md-4">
+            <label style="color: #38182f;" for="basic"><b>Inicio: </b></label>
+            <p-calendar inputId="basic" [(ngModel)]="date1"></p-calendar>
+        </div>
+
+        <div class="p-field p-col-12 p-md-4">
+            <label for="basic">Fim: </label>
+            <p-calendar inputId="basic" [(ngModel)]="date2"></p-calendar>
+        </div>
+
+        <button pButton pRipple type="button" label="Buscar" (click)="buscarServicosPorData()"></button>
+    </div>
+</div>
+
+<div class="table-area">
+    <p-table [value]="servicos" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rowsPerPageOptions]="[10,25,50]">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Autorizador</th>
+                <th>Status </th>
+                <th>Data</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-servico>
+            <tr>
+                <td>{{servico.autorizador}}</td>
+                <td>{{servico.status | statuspipe}}</td>
+                <td>{{servico.data | date: 'dd/MM/yyyy'}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="paginatorleft">
+            <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+        </ng-template>
+        <ng-template pTemplate="paginatorright">
+            <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+        </ng-template>
+    </p-table>
+</div>
